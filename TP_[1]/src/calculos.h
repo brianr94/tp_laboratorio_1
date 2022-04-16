@@ -11,6 +11,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DESCUENTO 10
+#define INTERES 1.25
+#define BITCOIN 4620526.38
+
 /// @fn float calculo_TarjetaDebito(float)
 /// @brief recibe el precio del vuelo y realiza el descuento.
 ///
