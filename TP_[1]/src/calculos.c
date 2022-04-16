@@ -6,14 +6,16 @@ TP 1
 
 #include "calculos.h"
 
-#define
+#define DESCUENTO 10
+#define INTERES 1.25
+#define BITCOIN 4620526.38
 
 float calculo_TarjetaDebito(float precioVuelo)
 {
 	float descuentoTotal;
 	float descuentoDebito;
 
-	descuentoDebito= (precioVuelo*10) / 100;
+	descuentoDebito= (precioVuelo*DESCUENTO) / 100;
 
 	descuentoTotal= precioVuelo - descuentoDebito;
 
@@ -25,11 +27,8 @@ float calculo_TarjetaDebito(float precioVuelo)
 float calculo_TarjetaCredito(float precioVuelo)
 {
 	float totalInteres;
-	float interes;
 
-	interes=1.25;
-
-	totalInteres= precioVuelo * interes;
+	totalInteres= precioVuelo * INTERES;
 
 	return totalInteres;
 
@@ -37,12 +36,10 @@ float calculo_TarjetaCredito(float precioVuelo)
 
 float calculo_Bitcoins(float precioVuelo)
 {
-	float bitcoin;
+
 	float totalPrecioBitcoin;
 
-	bitcoin= 4620526.38;
-
-	totalPrecioBitcoin= precioVuelo / bitcoin;
+	totalPrecioBitcoin= precioVuelo / BITCOIN;
 
 	return totalPrecioBitcoin;
 }

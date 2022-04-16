@@ -11,11 +11,12 @@ BRIAN RIANI, DIVISION 1°D.
 #include <stdlib.h>
 
 /// @fn int pedirNumeroEnteroMayorACero(char*, char*)
-/// @brief
+/// @brief Se solicita al usuario el ingreso de numero entero mayor a cero, valida que el numero ingresado sea correecto y retorna el numero ingresado.
+/// caso contrario imprime mensaje de error en pantalla hasta que el numero sea correcto
 ///
-/// @param mensaje
-/// @param mensajeError
-/// @return
+/// @param mensaje recibe un mensaje de ingreso de datos para el usuario.
+/// @param mensajeError mensaje de error en caso de que el usuario haya ingresado incorrectamente el dato solicitado.
+/// @return retorna el numero si es correcta la validacion, caso contrario vuelve a pedir el dato.
 int pedirNumeroEnteroMayorACero(char* mensaje, char* mensajeError);
 
 /// @fn int pedirFlotante(float*, char*, char*, int)
@@ -41,44 +42,43 @@ int pedirFlotante(float* pResultado, char* mensaje, char* mensajeError, int rein
 int pedirNumeroEnteroValidado(char* mensaje, char* mensajeError, int min, int max);
 
 /// @fn void cargaDatosForzada(int*, float*, float*)
-/// @brief
+/// @brief carga los datos con valores pre-establecidos.
 ///
-/// @param kms
-/// @param precioAero
-/// @param precioLatam
+/// @param kms parametro donde se va a cargar el dato pre-establecido.
+/// @param precioAero parametro donde se va a cargar el dato pre-establecido.
+/// @param precioLatam parametro donde se va a cargar el dato pre-establecido.
 void cargaDatosForzada(int* kms, float* precioAero, float* precioLatam);
 
 /// @fn void subMenu_Aerolineas(float*, float*, int*, int*)
-/// @brief
+/// @brief submenu para ingresar y cargar los precios de las aerolineas.
 ///
-/// @param aerolinea1
-/// @param aerolinea2
-/// @param flagAero1
-/// @param flagAero2
+/// @param aerolinea1 paramatro para guardar el precio de la primer aerolineas
+/// @param aerolinea2 paramatro para guardar el precio de la segunda aerolineas
+/// @param flagAero1 bandera para confirmar el ingreso del dato de la primer aerolinea
+/// @param flagAero2 bandera para confirmar el ingreso del dato de la segunda aerolinea
 void subMenu_Aerolineas(float* aerolinea1, float* aerolinea2, int* flagAero1, int* flagAero2);
 
 /// @fn void mostrarResultados(char*, float, float, float, float, float)
-/// @brief
+/// @brief muestra en pantalla el resultado de los calculos.
 ///
-/// @param nombreAerolinea
-/// @param precioVuelo
-/// @param totalDebito
-/// @param totalCredito
-/// @param totalBitcoin
-/// @param precioUnitario
+/// @param nombreAerolinea recibe el nombre de la aerolinea para imprimir en pantalla.
+/// @param precioVuelo recibe el precio de vuelo para imprimir en pantalla
+/// @param totalDebito recibe el total del calculo para imprimir en pantalla
+/// @param totalCredito recibe el total del calculo para imprimir en pantalla
+/// @param totalBitcoin recibe el total del calculo para imprimir en pantalla
+/// @param precioUnitario recibe el total del calculo para imprimir en pantalla
 void mostrarResultados(char* nombreAerolinea, float precioVuelo, float totalDebito, float totalCredito, float totalBitcoin, float precioUnitario);
 
-/// @fn void MostrarMenu(int, int, int, int, int, float, float)
-/// @brief
+/// @fn void MostrarMenu(int, int, int, int, float, float)
+/// @brief muestra el menu y sus datos ingresados.
 ///
-/// @param flagKm
-/// @param flagPrecioAerolineas
-/// @param flagPrecioLatam
-/// @param flagDatosCargados
-/// @param kms
-/// @param precioVuelo1
-/// @param precioVuelo2
-void MostrarMenu(int flagKm, int flagPrecioAerolineas, int flagPrecioLatam, int flagDatosCargados, int kms, float precioVuelo1, float precioVuelo2);
+/// @param flagKm bandera para confirmar y poder imprimir el dato en pantalla.
+/// @param flagPrecioAerolineas bandera para confirmar y poder imprimir el dato en pantalla.
+/// @param flagPrecioLatam bandera para confirmar y poder imprimir el dato en pantalla.
+/// @param kms valor para mostrar en pantalla.
+/// @param precioVuelo1 valor para mostrar en pantalla.
+/// @param precioVuelo2 valor para mostrar en pantalla.
+void MostrarMenu(int flagKm, int flagPrecioAerolineas, int flagPrecioLatam, int kms, float precioVuelo1, float precioVuelo2);
 
 /// @fn void limpiarConsola(void)
 /// @brief al no contar con la funcion system("cls"), esta reeemplaza y cada vez que el usuario elige una opcion

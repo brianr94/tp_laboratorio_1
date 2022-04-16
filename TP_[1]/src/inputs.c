@@ -157,7 +157,7 @@ void mostrarResultados(char* nombreAerolinea, float precioVuelo, float totalDebi
 	printf("\n\n");
 }
 
-void MostrarMenu(int flagKm, int flagPrecioAerolineas, int flagPrecioLatam, int flagDatosCargados, int kms, float precioVuelo1, float precioVuelo2)
+void MostrarMenu(int flagKm, int flagPrecioAerolineas, int flagPrecioLatam, int kms, float precioVuelo1, float precioVuelo2)
 {
 
 	if(flagKm==1 && flagPrecioAerolineas==1 && flagPrecioLatam==1){
@@ -221,20 +221,6 @@ void MostrarMenu(int flagKm, int flagPrecioAerolineas, int flagPrecioLatam, int 
 								"5. Carga forzada de datos.\n"
 								"6. Salir.\n"
 								"-------------------------------------\n", precioVuelo2);
-					}
-					else
-					{
-						if(flagDatosCargados==0)
-						{
-							printf("------------------------------------\n"
-								"1. Ingresar Kilómetros: ( km=7090).\n"
-								"2. Ingresar Precio de Vuelos: (Aerolíneas=$162965, Latam=$159339)\n"
-								"3. Calcular todos los costos:\n"
-								"4. Informar resultados.\n"
-								"5. Carga forzada de datos.\n"
-								"6. Salir.\n"
-								"-------------------------------------\n");
-						}
 					}
 				}
 			}

@@ -1,10 +1,7 @@
 /*
  ============================================================================
- Name        : TP1.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+	TRABAJO PRACTICO N° 1.
+	BRIAN RIANI 1° D
  ============================================================================
  */
 
@@ -50,7 +47,7 @@ int main(void)
 
 	do
 	{
-		MostrarMenu(flagKmIngresado, flagAeroIngresado, flagLatamIngresado, flagDatosCargados, kmIngresado, precioVueloAerolinea, precioVueloLatam);
+		MostrarMenu(flagKmIngresado, flagAeroIngresado, flagLatamIngresado, kmIngresado, precioVueloAerolinea, precioVueloLatam);
 
 		opcion=pedirNumeroEnteroValidado("Ingrese la opcion: ", "Error. Ingrese opcion correcta: ", 1, 6);
 
