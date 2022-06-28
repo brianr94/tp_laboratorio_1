@@ -245,3 +245,40 @@ int calcularDivision(float numeroA, float numeroB, float* refDivision)
 
 	return resultado;
 }
+
+int pedirCadenaCompuesta(char* mensaje, char* mensajeError, char* cadena, int tamCadena, int reintentos)
+{
+	int retorno;
+
+	retorno=0;
+
+	do {
+
+		printf("%s", mensaje);
+		fflush(stdin);
+
+		if (mensaje!= NULL && mensajeError!= NULL && cadena !=NULL && tamCadena > 0)
+		{
+			if (validarCadenaTamanio(cadena, tamCadena) == 1 && validarLetras(cadena) == 1)
+			{
+				retorno = 1;
+				break;
+			}
+			else
+			{
+				printf("%s", mensajeError);
+				fflush(stdin);
+				reintentos--;
+			}
+
+		}
+
+	}while(reintentos > 0);
+
+	if(reintentos==0)
+	{
+		printf("\n\nTe quedaste sin intentos, ingresa nuevamente !!!\n\n");
+	}
+
+	return retorno;
+}

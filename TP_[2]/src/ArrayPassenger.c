@@ -73,7 +73,7 @@ int requestPassenger(Passenger* list, int len, int* id)
 	{
 		ultimoId=*id;
 
-		if(pedirCadenaValidada(auxPassenger.name, "Ingrese el nombre del pasajero: ", "Error. Ingrese correctamente el nombre (Max caracteres 51): ", NAME)==-1)
+		if(pedirCadenaCompuesta("Ingrese el nombre del pasajero(Max caracteres 51): ", "Error.", auxPassenger.name, NAME, 10)==-1)
 		{
 			printf("Error.No se pudo guardar correctamente el nombre del pasajero.\n");
 		}
@@ -83,7 +83,7 @@ int requestPassenger(Passenger* list, int len, int* id)
 			printf("Error.No se pudo guardar correctamente el apellido del pasajero.\n");
 		}
 
-		if(pedirNumeroEnteroValidado(&auxPassenger.typePassenger, "Ingrese el tipo de pasajero (1-CLASE TURISTA 2-CLASE ECONOMICA 3-PRIMERA CLASE): ", "Error. Ingrese correctamente el tipo de pasajero (1-CLASE TURISTA 2-CLASE ECONOMICA 3-PRIMERA CLASE): ", 1, 3)==-1)
+		if(pedirNumeroEnteroValidado(&auxPassenger.typePassenger, "Ingrese el tipo de pasajero (1-CLASE ECONOMICA 2-CLASE EJECUTIVA 3-PRIMERA CLASE): ", "Error. Ingrese correctamente el tipo de pasajero (1-CLASE TURISTA 2-CLASE ECONOMICA 3-PRIMERA CLASE): ", 1, 3)==-1)
 		{
 			printf("Error.No se pudo guardar correctamente el tipo de pasajero.\n");
 		}
@@ -184,46 +184,80 @@ int sortPassengersByLastName(Passenger* list, int len, int order)
 	int retorno=-1;
 	int i;
 	int j;
+	int ordenAscDesc;
 	Passenger auxPassenger;
+
 
 	if(list != NULL && len>0)
 	{
-		if(order==ASCENDENTE)
+		if(order==1)
 		{
-			for(i=0;i<len;i++)
+			ordenAscDesc=1;
+		}
+		else
+		{
+			ordenAscDesc=-1;
+		}
+
+
+		for(i=0;i<len;i++)
+		{
+			for(j=i+1;j<len;j++)
 			{
-				for(j=i+1;j<len;j++)
+				if(list[i].isEmpty==FULL && list[j].isEmpty==FULL)
 				{
-					if(list[i].isEmpty==FULL && list[j].isEmpty==FULL)
+					if(strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
 					{
-						if(strcmp(list[i].lastName,list[j].lastName)==1)
+						auxPassenger=list[i];
+						list[i]=list[j];
+						list[j]=auxPassenger;
+						retorno=0;
+					}
+					else
+					{
+						if(strcmp(list[i].lastName,list[j].lastName)==ordenAscDesc)
 						{
 							auxPassenger=list[i];
 							list[i]=list[j];
 							list[j]=auxPassenger;
 							retorno=0;
-						}
-						else
-						{
-							if(strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
-							{
-								auxPassenger=list[i];
-								list[i]=list[j];
-								list[j]=auxPassenger;
-								retorno=0;
-							}
 						}
 					}
 				}
 			}
 		}
+	}
+
+	return retorno;
+}
+
+int sortPassengersByCode(Passenger* list, int len, int order, int statusFligth)
+{
+	int retorno=-1;
+	int i;
+	int j;
+	int ordenAscDesc;
+	Passenger auxPassenger;
+
+
+	if(list != NULL && len>0)
+	{
+		if(order==1)
+		{
+			ordenAscDesc=1;
+		}
 		else
+		{
+			ordenAscDesc=-1;
+		}
+
+		for(i=0;i<len;i++)
+		{
+			for(j=i+1;j<len;j++)
 			{
-				for(i=0;i<len;i++)
+				if(list[i].isEmpty==FULL && list[j].isEmpty==FULL)
 				{
-					for(j=i+1;j<len;j++)
-					{
-						if(strcmp(list[i].lastName,list[j].lastName)==-1)
+						if(stricmp(list[i].flyCode,list[i+1].flyCode)==0 && list[i].typePassenger>list[j].typePassenger)
 						{
 							auxPassenger=list[i];
 							list[i]=list[j];
@@ -232,7 +266,7 @@ int sortPassengersByLastName(Passenger* list, int len, int order)
 						}
 						else
 						{
-							if(strcmp(list[i].lastName,list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
+							if(stricmp(list[i].flyCode,list[i+1].flyCode)==ordenAscDesc)
 							{
 								auxPassenger=list[i];
 								list[i]=list[j];
@@ -245,74 +279,14 @@ int sortPassengersByLastName(Passenger* list, int len, int order)
 			}
 	}
 
-	return retorno;
-}
-
-int sortPassengersByCode(Passenger* list, int len, int order)
-{
-	int retorno=-1;
-	int i;
-	int j;
-	Passenger auxPassenger;
-
-
-	if(list != NULL && len>0)
+	if(retorno==0)
 	{
-
-		if(order==ASCENDENTE)
+		printf("\nPasajeros ordenados:\n\n%-5s %-20s %-20s %-20s %-20s %-20s %-25s\n", "ID", "Nombre", "Apellido", "TipoPasajero", "Precio", "EstadoDelVuelo", "CodigoDeVuelo");
+		for(i=0;i<len;i++)
 		{
-			for(i=0;i<len;i++)
+			if(list[i].statusFlight==statusFligth)
 			{
-				for(j=i+1;j<len;j++)
-				{
-					if(list[i].isEmpty==FULL && list[j].isEmpty==FULL)
-					{
-						if(strcmp(list[i].flyCode,list[j].flyCode)==1)
-						{
-							auxPassenger=list[i];
-							list[i]=list[j];
-							list[j]=auxPassenger;
-							retorno=0;
-						}
-						else
-						{
-							if(strcmp(list[i].flyCode,list[j].flyCode)==0 && list[i].statusFlight>list[j].statusFlight)
-							{
-								auxPassenger=list[i];
-								list[i]=list[j];
-								list[j]=auxPassenger;
-								retorno=0;
-							}
-						}
-					}
-
-				}
-			}
-		}
-		else
-		{
-			for(i=0;i<len;i++)
-			{
-				for(j=i+1;j<len;j++)
-				{
-					if(strcmp(list[i].flyCode,list[j].flyCode)==-1)
-					{
-						auxPassenger=list[i];
-						list[i]=list[j];
-						list[j]=auxPassenger;
-						retorno=0;
-					}
-					else
-					{
-						if(strcmp(list[i].flyCode,list[j].flyCode)==0 && list[i].statusFlight>list[j].statusFlight)
-						{
-							auxPassenger=list[i];
-							list[i]=list[j];
-							list[j]=auxPassenger;
-							retorno=0;
-						}
-					}
-				}
+				printPassenger(list[i]);
 			}
 		}
 	}
@@ -364,13 +338,13 @@ void printPassenger(Passenger list)
 		switch(list.statusFlight)
 		{
 		case 1:
-			printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE TURISTA", list.price, "ACTIVO", list.flyCode);
+			printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE ECONOMICA", list.price, "ACTIVO", list.flyCode);
 			break;
 		case 2:
-			printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE TURISTA", list.price, "INACTIVO", list.flyCode);
+			printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE ECONOMICA", list.price, "INACTIVO", list.flyCode);
 			break;
 		case 3:
-			printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE TURISTA", list.price, "DEMORADO", list.flyCode);
+			printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE ECONOMICA", list.price, "DEMORADO", list.flyCode);
 			break;
 		}
 
@@ -381,13 +355,13 @@ void printPassenger(Passenger list)
 			switch(list.statusFlight)
 			{
 				case 1:
-					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE ECONOMICA", list.price, "ACIVO", list.flyCode);
+					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE EJECUTIVA", list.price, "ACTIVO", list.flyCode);
 					break;
 				case 2:
-					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ," CLASE ECONOMICA", list.price, "INACTIVO", list.flyCode);
+					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ," CLASE EJECUTIVA", list.price, "INACTIVO", list.flyCode);
 					break;
 				case 3:
-					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE ECONOMICA", list.price, "DEMORADO", list.flyCode);
+					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"CLASE EJECUTIVA", list.price, "DEMORADO", list.flyCode);
 					break;
 			}
 		}
@@ -397,7 +371,7 @@ void printPassenger(Passenger list)
 			switch(list.statusFlight)
 			{
 				case 1:
-					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"PRIMERA CLASE", list.price, "ACIVO", list.flyCode);
+					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"PRIMERA CLASE", list.price, "ACTIVO", list.flyCode);
 					break;
 				case 2:
 					printf("%-5d %-20s %-20s %-20s %-20.2f %-20s %-25s\n", list.id, list.name, list.lastName ,"PRIMERA CLASE", list.price, "INACTIVO", list.flyCode);
@@ -482,7 +456,7 @@ int modifyPasseger(Passenger* list, int len)
 				switch(opcion)
 				{
 					case 1:
-						pedirCadenaValidada(auxPassenger.name, "Ingrese el nombre del pasajero: ", "Error. Ingrese correctamente el nombre (Max caracteres 51): ", NAME);
+						pedirCadenaCompuesta("Ingrese el nombre del pasajero: ", "Error. Ingrese correctamente el nombre (Max caracteres 51): ", auxPassenger.name, NAME, 10);
 
 						if(verificarConfirmacion("Ingrese 's' para confirmar la modificacion: ") != -1)
 						{
@@ -508,7 +482,7 @@ int modifyPasseger(Passenger* list, int len)
 						}
 						break;
 					case 3:
-						pedirNumeroEnteroValidado(&auxPassenger.typePassenger, "Ingrese el tipo de pasajero (1-CLASE TURISTA 2-CLASE ECONOMICA 3-PRIMERA CLASE): ", "Error. Ingrese correctamente el tipo de pasajero (1-CLASE TURISTA 2-CLASE ECONOMICA 3-PRIMERA CLASE): ", 1, 3);
+						pedirNumeroEnteroValidado(&auxPassenger.typePassenger, "Ingrese el tipo de pasajero (1-CLASE ECONOMICA 2-CLASE EJECUTIVA 3-PRIMERA CLASE): ", "Error. Ingrese correctamente el tipo de pasajero (1-CLASE TURISTA 2-CLASE ECONOMICA 3-PRIMERA CLASE): ", 1, 3);
 
 						if(verificarConfirmacion("Ingrese 's' para confirmar la modificacion: ") != -1)
 						{
@@ -613,13 +587,16 @@ int subMenuReport(Passenger* list, int len)
 			switch(opcion)
 			{
 				case 1:
-					//preguntar en que orden va si ASC o DESC
+					sortPassengersByLastName(list, len, ASCENDENTE);
+					printf("\nOrdenamiento realizado correctamente!!!\n");
+					printPassengers(list, len);
 					break;
 				case 2:
 					totalPriceAndAveragedPrice(list, len);
 					break;
 				case 3:
-					//Lo mismo que en el case 1
+					sortPassengersByCode(list, len, ASCENDENTE, 1);
+					printf("\nOrdenamiento realizado correctamente!!!\n");
 					break;
 
 				case 4:
@@ -746,7 +723,7 @@ int cargaForzadaDatos(Passenger* list,int len, int* id)
 
 		ultimoId=*id;
 
-		if(cargarPasajeroForzado(list, len, ultimoId, "Antonio", "Veron", 19000, 2, "AA220", 1)==0)
+		if(cargarPasajeroForzado(list, len, ultimoId, "Antonio", "Veron", 19000, 2, "AA220", 2)==0)
 		{
 			list[ultimoId].id=ultimoId+1;
 			*id=list[ultimoId].id;
@@ -754,7 +731,7 @@ int cargaForzadaDatos(Passenger* list,int len, int* id)
 
 		ultimoId=*id;
 
-		if(cargarPasajeroForzado(list, len, ultimoId, "Nathaly", "Aguila", 10000, 2, "LA201", 1)==0)
+		if(cargarPasajeroForzado(list, len, ultimoId, "Nathaly", "Aguila", 10000, 1, "LA201", 1)==0)
 		{
 			list[ultimoId].id=ultimoId+1;
 			*id=list[ultimoId].id;
@@ -762,12 +739,14 @@ int cargaForzadaDatos(Passenger* list,int len, int* id)
 
 		ultimoId=*id;
 
-		if(cargarPasajeroForzado(list, len, ultimoId, "Teresa", "Lopez", 45000, 2, "AA220", 1)==0)
+		if(cargarPasajeroForzado(list, len, ultimoId, "Teresa", "Lopez", 45000, 2, "AA220", 2)==0)
 		{
 			list[ultimoId].id=ultimoId+1;
 			*id=list[ultimoId].id;
 		}
+
 		retorno=0;
+
 	}
 
 	return retorno;

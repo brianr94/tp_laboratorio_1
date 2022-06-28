@@ -112,4 +112,16 @@ int verificarConfirmacion(char* mensaje);
 /// @return retorna 1 si la divison fue resuelta y pasa por referencia el resultado y caso contrario retorna 0 sino fue resuelta, por ser 0 el divisor.
 int calcularDivision(float numeroA, float numeroB, float* refDivision);
 
+
+/// @fn int pedirCadenaCompuesta(char*, char*, char*, int, int)
+/// @brief se solicita al usuario una cadena de caracteres validando que no haya numeros, espacios en el primer lugar, o exceda el tamaño maximo definido y signos.
+///
+/// @param mensaje recibe un puntero de cadena de caracteres con un mensaje
+/// @param mensajeError recibe un puntero de cadena de caracteres con un mensaje de error
+/// @param cadena puntero a cadena de caracteres
+/// @param tamCadena tamaño maximo de la cadena
+/// @param reintentos cantidad de reintentos que se le da al usuario para ingresar el dato
+/// @return retorna 0 si la cadena es correcta, sino retorna -1 si la cadena es erronea o se termina los intentos.
+int pedirCadenaCompuesta(char* mensaje, char* mensajeError, char* cadena, int tamCadena, int reintentos);
+
 #endif /* UTN_INPUTS_H_ */

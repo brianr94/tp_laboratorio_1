@@ -26,7 +26,7 @@
 #define DESCENDENTE -1
 
 //typePasseger
-#define CLASETURISTA 1
+#define CLASEECONOMICA 1
 #define CLASEEJECUTIVA 2
 #define PRIMERACLASE 3
 
@@ -115,14 +115,15 @@ int searchEmptyIndex(Passenger* list, int len, int* index);
 /// @return Return (-1) if Error [Invalid length or NULL pointer or if can't find a passenger] - (0) if Ok
 int removePassenger(Passenger* list, int len, int id);
 
-/// @fn int sortPassengersByCode(Passenger*, int, int)
+/// @fn int sortPassengersByCode(Passenger*, int, int, int)
 /// @brief Sort the elements in the array of passengers, the argument order indicate UP or DOWN order
 ///
 /// @param list  Passenger* Pointer to array of passenger
 /// @param len Array length
+/// @param statusFligth int
 /// @param order [1] indicate UP - [0] indicate DOWN
 /// @return  Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
-int sortPassengersByCode(Passenger* list, int len, int order);
+int sortPassengersByCode(Passenger* list, int len, int order, int statusFligth);
 
 /// @fn int sortPassengersByLastName(Passenger*, int, int)
 /// @brief Sort the elements in the array of passengers, the argument order indicate UP or DOWN order

@@ -5,7 +5,11 @@
  *      Author: brian
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "utn_validaciones.h"
+#include <ctype.h>
+#include <string.h>
 
 
 
@@ -166,6 +170,60 @@ int validarLetrasYNumeros(char* cadena)
 						break;
 					}
 			}
+	}
+
+	return retorno;
+}
+
+int validarLetras(char* cadena)
+{
+	int i;
+	int retorno;
+
+
+	retorno=1;
+
+	if(cadena != NULL)
+	{
+		for(i=0; i<strlen(cadena); i++)
+		{
+					if((cadena[i] != ' ') && (isalpha(cadena[i]) == 0 ))
+					{
+						retorno = 0;
+						break;
+					}
+					if(cadena[i] == ' ' && i == 0)
+					{
+						retorno= 0;
+						break;
+					}
+			}
+
+	}
+	return retorno;
+}
+
+int validarCadenaTamanio(char* cadena, int tamCadena)
+{
+	int retorno;
+	char auxCadena[1000];
+
+	retorno=0;
+
+	if (cadena != NULL && tamCadena > 0 )
+	{
+		if (fgets(auxCadena, sizeof(auxCadena), stdin) != NULL)
+		{
+			if(auxCadena[strnlen(auxCadena, sizeof(auxCadena)) - 1] == '\n')
+			{
+				auxCadena[strnlen(auxCadena, sizeof(auxCadena)) - 1] = '\0';
+			}
+			if (strlen(auxCadena)+1 <= tamCadena && strlen(auxCadena)>0)
+			{
+				strncpy(cadena, auxCadena, tamCadena);
+				retorno = 1;
+			}
+		}
 	}
 
 	return retorno;

@@ -52,7 +52,7 @@ int main(void) {
 											"5. CARGA DE DATOS FORZADA\n"
 											"6. SALIR\n"
 											"----------------------------------\n"
-											"Error.Ingrese una opcion correcta: ", 1, 7);
+											"Error.Ingrese una opcion correcta: ", 1, 6);
 
 
 		switch(opcion)
@@ -100,19 +100,21 @@ int main(void) {
 				break;
 			case 5:
 				cargaForzadaDatos(pasajeros, LENGTHPASSENGERS, &ultimoId);
+				printf("\nCarga Forzada realizada con exito!!!\n");
 				flagCargaForzada=1;
 				break;
 
 			case 6:
-				//printf("\nEligio salir del programa!!!!\n");
-				printPassengers(pasajeros, LENGTHPASSENGERS);
-				break;
-			case 7:
+				printf("\nEligio salir del programa!!!!\n");
 				break;
 		}
 
+		if(opcion != 6)
+		{
+			system("pause");
+		}
 
-	}while(opcion != 7);
+	}while(opcion != 6);
 
 
 

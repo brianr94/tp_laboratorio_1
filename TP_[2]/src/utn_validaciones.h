@@ -60,4 +60,20 @@ int cadenaEnMayuscula(char* cadena);
 /// @return retorna 0 si valida la verificacion y -1 si no hay letras y numeros.
 int validarLetrasYNumeros(char* cadena);
 
+
+/// @fn int validarLetras(char*)
+/// @brief recibe la cadena y valida que no haya espacios en el primer lugar
+///
+/// @param cadena cadena a verificar
+/// @return retorna 0 si valida la verificacion y -1 si no hay letras y espacio en el primer lugar.
+int validarLetras(char* cadena);
+
+/// @fn int validarCadenaTamanio(char*, int)
+/// @brief recibe la cadena y valida que no exceda ell maximo
+///
+/// @param cadena cadena a verificar
+/// @param tamCadena tamaño maximo definido
+/// @return retorna 0 si la cadena es correcta, sino retorna -1 si la cadena excede el maximo.
+int validarCadenaTamanio(char* cadena, int tamCadena);
+
 #endif /* UTN_VALIDACIONES_H_ */
