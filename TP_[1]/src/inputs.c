@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "inputs.h"
+#include "calculos.h"
 
 int pedirNumeroEnteroMayorACero(char* mensaje, char* mensajeError)
 {
@@ -71,11 +72,27 @@ int pedirFlotante(float* pResultado, char* mensaje, char* mensajeError, int rein
 	return retorno;
 }
 
-void cargaDatosForzada(int* kms, float* precioAero, float* precioLatam)
+int cargaDatosForzada(int* kms, float* precioAero, float* precioLatam)
 {
 	int auxKms;
 	float auxPrecioAero;
 	float auxPrecioLatam;
+	int retorno=-1;
+
+	char aerolinea[]="Aerolineas";
+	char latam[]="Latam";
+
+	float debitoAerolinea;
+	float creditoAerolinea;
+	float bitcoinAerolinea;
+	float precioUnitarioKmAerolinea;
+
+	float debitoLatam;
+	float creditoLatam;
+	float bitcoinLatam;
+	float precioUnitarioKmLatam;
+
+	float totalDiferencia;
 
 	auxKms= 7090;
 	auxPrecioAero= 162965;
@@ -84,7 +101,35 @@ void cargaDatosForzada(int* kms, float* precioAero, float* precioLatam)
 	*kms= auxKms;
 	*precioAero=auxPrecioAero;
 	*precioLatam= auxPrecioLatam;
+
+
+	//Precio AeroLineas
+	debitoAerolinea= calculo_TarjetaDebito(auxPrecioAero);
+	creditoAerolinea= calculo_TarjetaCredito(auxPrecioAero);
+	bitcoinAerolinea= calculo_Bitcoins(auxPrecioAero);
+	precioUnitarioKmAerolinea= calculo_PrecioKm(auxPrecioAero, auxKms);
+
+	//Precio Latam
+	debitoLatam= calculo_TarjetaDebito(auxPrecioLatam);
+	creditoLatam= calculo_TarjetaCredito(auxPrecioLatam);
+	bitcoinLatam= calculo_Bitcoins(auxPrecioLatam);
+	precioUnitarioKmLatam= calculo_PrecioKm(auxPrecioLatam, auxKms);
+
+	//Diferecia de precios
+	totalDiferencia= calculo_DiferenciaPrecios(auxPrecioAero, auxPrecioLatam);
+
+
+	printf("\nKMs Ingresado: %d\n\n", auxKms);
+
+	mostrarResultados(aerolinea, auxPrecioAero, debitoAerolinea, creditoAerolinea, bitcoinAerolinea, precioUnitarioKmAerolinea);
+	mostrarResultados(latam, auxPrecioLatam, debitoLatam, creditoLatam, bitcoinLatam, precioUnitarioKmLatam);
+
+	printf("La diferencia de precio es: $ %.2f\n", totalDiferencia);
+	retorno=0;
+
+	return retorno;
 }
+
 
 void subMenu_Aerolineas(float* aerolinea1, float* aerolinea2, int* flagAero1, int* flagAero2)
 {
@@ -151,7 +196,7 @@ void mostrarResultados(char* nombreAerolinea, float precioVuelo, float totalDebi
 	printf("Precio %s : $ %.2f\n", nombreAerolinea, precioVuelo);
 	printf( "a) Precio con tarjeta de debito: $ %.2f\n"
 			"b) Precio con tarjeta de credito: $ %.2f\n"
-			"c) Precio pagando con bitcoin: %.2f BTC\n"
+			"c) Precio pagando con bitcoin: %f BTC\n"
 			"d) Mostrar precio unitario: $ %.2f", totalDebito, totalCredito, totalBitcoin, precioUnitario);
 
 	printf("\n\n");

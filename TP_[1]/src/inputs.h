@@ -41,13 +41,14 @@ int pedirFlotante(float* pResultado, char* mensaje, char* mensajeError, int rein
 /// @return retorna el numero ingresado que fue correctamente validado.
 int pedirNumeroEnteroValidado(char* mensaje, char* mensajeError, int min, int max);
 
-/// @fn void cargaDatosForzada(int*, float*, float*)
-/// @brief carga los datos con valores pre-establecidos.
+/// @fn int cargaDatosForzada(int*, float*, float*)
+/// @brief carga los datos con valores pre-establecidos ,calcula las operaciones e imprime en pantalla los resultados .
 ///
 /// @param kms parametro donde se va a cargar el dato pre-establecido.
 /// @param precioAero parametro donde se va a cargar el dato pre-establecido.
 /// @param precioLatam parametro donde se va a cargar el dato pre-establecido.
-void cargaDatosForzada(int* kms, float* precioAero, float* precioLatam);
+/// @return retorna 0 si se calculo bien, sin retorna -1 si salio mal.
+int cargaDatosForzada(int* kms, float* precioAero, float* precioLatam);
 
 /// @fn void subMenu_Aerolineas(float*, float*, int*, int*)
 /// @brief submenu para ingresar y cargar los precios de las aerolineas.

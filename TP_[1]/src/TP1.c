@@ -21,7 +21,6 @@ int main(void)
 	int flagKmIngresado;
 	int flagAeroIngresado;
 	int flagLatamIngresado;
-	int flagDatosCargados;
 	int flagCalculos;
 	float precioVueloAerolinea;
 	float precioVueloLatam;
@@ -39,7 +38,6 @@ int main(void)
 	flagAeroIngresado=1;
 	flagLatamIngresado=1;
 	flagKmIngresado=1;
-	flagDatosCargados=1;
 	flagCalculos=1;
 
 
@@ -62,7 +60,7 @@ int main(void)
 					subMenu_Aerolineas(&precioVueloAerolinea, &precioVueloLatam, &flagAeroIngresado, &flagLatamIngresado);
 					break;
 				case 3:
-					if((flagKmIngresado==0 && flagAeroIngresado==0 && flagLatamIngresado==0) || flagDatosCargados==0)
+					if(flagKmIngresado==0 && flagAeroIngresado==0 && flagLatamIngresado==0)
 					{
 						totalDebitoAerolinea= calculo_TarjetaDebito(precioVueloAerolinea);
 						totalDebitoLatam= calculo_TarjetaDebito(precioVueloLatam);
@@ -98,7 +96,6 @@ int main(void)
 					break;
 				case 5:
 					cargaDatosForzada(&kmIngresado, &precioVueloAerolinea, &precioVueloLatam);
-					flagDatosCargados=0;
 					break;
 				case 6:
 					printf("Eligio Salir del Programa!!!.\n");
